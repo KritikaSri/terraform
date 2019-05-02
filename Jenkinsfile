@@ -3,7 +3,7 @@ pipeline {
     
     
     tools {
-        "org.jenkinsci.plugins.terraform.TerraformInstallation" "Terraform"
+        "org.jenkinsci.plugins.terraform.TerraformInstallation" "terraform-0.11.8"
     }
     
     
