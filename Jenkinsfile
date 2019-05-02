@@ -37,14 +37,7 @@ pipeline {
             }
         }
 
-        stage('TerraformValidate'){
-            steps {
-                dir('jenkins-terraform-pipeline/ec2_pipeline/'){
-                    sh "terraform validate"
-                }
-            }
-        }
-
+        
         stage('TerraformPlan'){
             steps {
                 dir('jenkins-terraform-pipeline/ec2_pipeline/'){
