@@ -29,14 +29,7 @@ pipeline {
             }
         }
 
-        stage('TerraformFormat'){
-            steps {
-               
-                    sh "terraform fmt -list=true -write=false -diff=true -check=true"
-                
-            }
-        }
-
+        
         
         stage('TerraformPlan'){
             steps {
