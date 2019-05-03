@@ -6,13 +6,11 @@ pipeline {
         "org.jenkinsci.plugins.terraform.TerraformInstallation" "terraform-0.11.8"
     }
     
-     parameters {
+    
+    
+    parameters {
         string(name: 'WORKSPACE', defaultValue: 'development', description:'setting up workspace for terraform')
     }
-    
-    
-    
-    
     environment {
         TF_HOME = tool('terraform-0.11.8')
         TF_IN_AUTOMATION = "true"
@@ -23,11 +21,11 @@ pipeline {
     stages {
             stage('TerraformInit'){
             steps {
-                
+               
                     sh "terraform init -input=false"
                     sh "echo \$PWD"
                     sh "whoami"
-                
+               
             }
         }
 
@@ -35,14 +33,21 @@ pipeline {
             steps {
                
                     sh "terraform fmt -list=true -write=false -diff=true -check=true"
+                
+            }
+        }
+
+        stage('TerraformValidate'){
+            steps {
+             
+                    sh "terraform validate"
                
             }
         }
 
-        
         stage('TerraformPlan'){
             steps {
-                {
+               
                     script {
                         try {
                             sh "terraform workspace new ${params.WORKSPACE}"
@@ -52,8 +57,8 @@ pipeline {
                         sh "terraform plan -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' \
                         -out terraform.tfplan;echo \$? > status"
                         stash name: "terraform-plan", includes: "terraform.tfplan"
-                   
-                }
+                    }
+               
             }
         }
         stage('TerraformApply'){
@@ -71,7 +76,7 @@ pipeline {
                         
                             unstash "terraform-plan"
                             sh 'terraform apply terraform.tfplan'
-                       
+                        
                     }
                 }
             }
