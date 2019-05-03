@@ -37,14 +37,7 @@ pipeline {
             }
         }
 
-        stage('TerraformValidate'){
-            steps {
-             
-                    sh "terraform validate"
-               
-            }
-        }
-
+        
         stage('TerraformPlan'){
             steps {
                
