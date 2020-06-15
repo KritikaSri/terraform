@@ -1,12 +1,12 @@
 provider "aws" {
-  region = "us-west-2"
+  region = "ap_south_1"
 }
 
 resource "aws_vpc" "default" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = "0.0.0.0/0"
   enable_dns_hostnames = true
 
   tags {
-    Name = "ow-dev-vpc"
+    Name = "ciam-dev-vpc"
   }
 }
